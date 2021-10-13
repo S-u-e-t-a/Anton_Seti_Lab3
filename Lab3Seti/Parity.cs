@@ -1,32 +1,37 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace Lab3Seti
 {
     public class Parity
     {
-        public string MakeMessage(string letter)
+        public static List<uint> MakeMessage(in byte[] letter)
         {
-            int controlSum = letter[0];
+            var ctrlSum = new List<uint>(); // Всего байт в исходных данных
 
-            for (int i = 1; i < letter.Length; i++)
+            for (int i = 0; i < letter.Length; i++)
             {
-                controlSum ^= letter[i];
+                ctrlSum.Add(ParityControlXORByteSum(letter[i]));
             }
-
-            string result = letter + controlSum;
-            return result;
+            
+            return ctrlSum;
         }
-
-        public bool CheckMessage(List<int> letter)
+        public static uint ParityControlXORByteSum(byte OneByte) 
         {
-            int realControlSum = letter[letter.Count - 1];
-            int theoryConSum = (letter[0]);
+            const uint bitMask8 = 1 << 8;
+            const uint bitMask1 = 1;
+            uint message = OneByte | bitMask8;
 
-            for (int i = 1; i < letter.Count - 1; i++)
+            int lBorderByte = 1;
+            int pBorderByte = 9;
+            uint controlSum = 0;
+
+            for (int j = lBorderByte; j < pBorderByte; j++) // Бит j в байте i
             {
-                theoryConSum ^= letter[i];
+                uint bitJ = ((message >> (pBorderByte - j - 1)) & bitMask1);
+                controlSum ^= bitJ;
             }
-            return Equals(realControlSum, theoryConSum);
+            return controlSum;
         }
     }
 }

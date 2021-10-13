@@ -5,59 +5,33 @@ namespace Lab3Seti
 {
     public class VerHorParity
     {
-        public List<int> MakeMessageHorizontal(List<int> letter)
+        public static void VertAndHorizontParityControlSum(in byte[] array, out uint[] countSumVer, out uint[] countSumHor)
         {
-            int controlSum = letter[0];
+            const uint bitMask8 = 1 << 8;
+            const uint bitMask1 = 1;
 
-            for (int i = 1; i < letter.Count; i++)
+            uint[] message = new uint[8];
+
+            int lBorderByte = 1;
+            int pBorderByte = 9;
+
+
+            for (int i = 0; i < array.Length; i++)
             {
-                controlSum ^= letter[i];
+                message[i] = (uint)array[i] | bitMask8;
             }
 
-            letter.Add(controlSum);
-            return letter;
-        }
-
-        public int MakeMessageVertical(List<int> letter)
-        {
-            int controlSum = letter[0];
-
-            for (int i = 1; i < letter.Count; i++)
+            countSumVer = new uint[8]; // По столбу сверху вниз
+            countSumHor = new uint[8]; // По строке слева направо 
+            for (int i = 0; i < message.Length; i++) // По байту
             {
-                controlSum ^= letter[i];
-            }
-
-            return controlSum;
-        }
-
-        public void CreateMessageTable(List<List<int>> word)
-        {
-            for (int i = 0; i < word.Count; i++)
-            {
-                word[i] = MakeMessageHorizontal(word[i]);
-            }
-
-            List<int> VertialCtrlSum = new List<int>();
-            List<int> temp = new List<int>();
-            
-            for (int i = 0; i < 8; i++)
-            {
-                foreach (var item in word)
+                for (int j = lBorderByte; j < pBorderByte; j++) // Бит j в байте i
                 {
-                    temp.Add(item[i]);
+                    uint bitJ = ((message[i] >> (pBorderByte - j - 1)) & bitMask1);
+                    countSumHor[i] ^= bitJ;
+                    countSumVer[j - 1] ^= bitJ;
                 }
-                VertialCtrlSum.Add(MakeMessageVertical(temp));
-                temp.Clear();
             }
-            
-            Console.WriteLine("Байты |       Биты");
-            Console.WriteLine("      | 0 1 2 3 4 5 6 7 КС");
-            Console.WriteLine("  Г   | " + string.Join(" ", word[0]));
-            Console.WriteLine("  У   | " + string.Join(" ", word[1]));
-            Console.WriteLine("  С   | " + string.Join(" ", word[2]));
-            Console.WriteLine("  Е   | " + string.Join(" ", word[3]));
-            Console.WriteLine("  В   | " + string.Join(" ", word[4]));
-            Console.WriteLine("  КС  | " + string.Join(" ", VertialCtrlSum));
         }
     }
 }

@@ -7,62 +7,67 @@ namespace Lab3Seti
     {
         static void Main(string[] args)
         {
+            byte[] surname = new byte[] { 0x83, 0xE3, 0xE1, 0xA5, 0xA2}; //Гусев
             //вывод исходного сообщения
             Console.WriteLine();
             Console.WriteLine("=== Контроль по паритету ===");
 
-            string letterParity = "10000011";
-            Console.WriteLine($"Исходное сообщение: {letterParity}");
+            Console.WriteLine($"Исходное сообщение: Гусев");
+            for (int i = 0; i < surname.Length; i++)
+            {
+                Console.Write(Convert.ToString(surname[i], 2) + " ");
+            }
+            Console.WriteLine();
 
-            //вывод сообщения для отправки
-            var parity = new Parity();
-            Console.WriteLine($"Сообщение для отправки: {parity.MakeMessage(letterParity)}");
+            var ctrlSumParity = Parity.MakeMessage(surname);
 
-            #region проверка вводимого сообщения
-
-            //проверка вводимого сообщения            
-            //Console.WriteLine("Введите 9 битовое сообщение с контрольной суммой в конце для проверки");
-            //var testMessage = new List<int>();
-            //for (int i = 0; i < 9; i++)
-            //{
-            //    testMessage.Add(Convert.ToInt32(Console.ReadLine()));
-            //}
-            //if (parity.CheckMessage(testMessage))
-            //{
-            //    Console.WriteLine($"Сообщение {string.Join("", testMessage)} может быть без искажений или искажено четное число бит");
-            //}
-            //else
-            //{
-            //    Console.WriteLine($"Сообщение {string.Join("", testMessage)} передано с искажениями. Искажено нечетное кол-во бит");
-            //}
-            #endregion
+            for (int i = 0; i < ctrlSumParity.Count; i++)
+            {
+                Console.WriteLine($"{i} байт: { Convert.ToString(surname[i], 2)} КС: {ctrlSumParity[i]}");
+            }
 
             Console.WriteLine("===  ===");
             Console.WriteLine();
 
             Console.WriteLine("=== Вертикальный и горизонтальный контроль по паритету ===");
-
-            Console.WriteLine("Таблица для метода вертикального и горизонтального контроля по паритету");
-            var vhp = new VerHorParity();
-            var wordParity = new List<List<int>>
+            Console.WriteLine($"Исходное сообщение: Гусев");
+            for (int i = 0; i < surname.Length; i++)
             {
-                new List<int>{ 1,0,0,0,0,0,1,1 },
-                new List<int>{ 1,1,1,0,0,0,1,1},
-                new List<int>{ 1,1,1,0,0,0,0,1 },
-                new List<int>{ 1,0,1,0,0,1,0,1 },
-                new List<int>{ 1,0,1,0,0,0,1,0 }
+                Console.Write(Convert.ToString(surname[i], 2) + " ");
+            }
+            Console.WriteLine();
+            Console.WriteLine("Таблица для метода вертикального и горизонтального контроля по паритету");
+            uint[] countSumHor;
+            uint[] countSumVer;
 
-            };
-            vhp.CreateMessageTable(wordParity);
+            VerHorParity.VertAndHorizontParityControlSum(surname, out countSumVer, out countSumHor);
+
+            for (int i = 0; i < surname.Length; i++)
+            {
+                Console.Write($"{i}Б  { Convert.ToString(surname[i], 2)}  КC: { Convert.ToString(countSumHor[i], 2)}");
+                Console.WriteLine();
+            }
+            Console.Write("КС: ");
+            for (int i = 0; i < countSumVer.Length; i++)
+            {
+                Console.Write(Convert.ToString(countSumVer[i], 2));
+            }
+            Console.WriteLine();
 
             Console.WriteLine("===  ===");
             Console.WriteLine();
 
             Console.WriteLine("=== Циклический избыточный контроль ===");
 
-            var crc = new CRC();
-            List<int> result = crc.MakeResult();
-            Console.WriteLine($"Контрольная сумма:" + Environment.NewLine + $"{string.Join("", result)}");
+            uint contrlSum;
+
+            CRCTable.CRC32(surname, out contrlSum);
+            Console.Write("КС CRC-32-ITU: ");
+            Console.Write(Convert.ToString(contrlSum, 2));
+            Console.WriteLine();
+            //var crc = new CRC();
+            //List<int> result = crc.MakeResult();
+            //Console.WriteLine($"Контрольная сумма:" + Environment.NewLine + $"{string.Join("", result)}");
 
             Console.WriteLine("===  ===");
             Console.WriteLine();
