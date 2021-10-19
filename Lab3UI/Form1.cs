@@ -40,8 +40,10 @@ namespace Lab3UI
                 }
             }
 
-            uint CSCRC;
-            CRCTable.CRC32(input, out CSCRC);
+            int CSCRC;
+            var crcNew = new CRCRegNew();
+            CSCRC = crcNew.CRCBitByBit(input);
+            //CRCReg.CRC32(input, out CSCRC);
             textBoxCRC.Text += Convert.ToString(CSCRC, 2);
 
         }

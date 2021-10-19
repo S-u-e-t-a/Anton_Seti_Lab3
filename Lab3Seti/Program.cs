@@ -61,10 +61,15 @@ namespace Lab3Seti
 
             uint contrlSum;
 
-            CRCTable.CRC32(surname, out contrlSum);
-            Console.Write("КС CRC-32-ITU: ");
-            Console.Write(Convert.ToString(contrlSum, 2));
-            Console.WriteLine();
+            var CRC = new CRCRegNew();
+            Console.WriteLine(Convert.ToString(CRC.CRCBitByBit(surname), 16));
+
+            //CRCReg.CRC32(surname, out contrlSum);
+            //Console.Write("КС CRC-32-ITU: ");
+            //Console.Write(Convert.ToString(contrlSum, 2));
+            //Console.WriteLine();
+
+
             //var crc = new CRC();
             //List<int> result = crc.MakeResult();
             //Console.WriteLine($"Контрольная сумма:" + Environment.NewLine + $"{string.Join("", result)}");
