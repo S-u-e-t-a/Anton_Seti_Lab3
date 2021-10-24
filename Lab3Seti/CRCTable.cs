@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Lab3Seti
 {
-    public class CRCRegNew
+    class CRCTable
     {
         const int order = 4;
         const int polynom = 0x03; //0x03;
@@ -15,32 +15,27 @@ namespace Lab3Seti
         private readonly int crcmask = (((1 << (order - 1)) - 1) << 1) | 1;
         int CRC;
         private readonly int CRCHighBit = 1 << (order - 1);
-
-        public int CRCBitByBit(byte[] input)
+        int[] crctab = new int[256];
+        public void GenarateCRCTablae()
         {
-            int c, bit;
-            CRC = 0x0;           
+            int i, j;
+            int bit;
 
-            for (int i = 0; i < input.Length - 1; i++)
+            for (i = 0; i < 256; i++)
             {
-                c = Convert.ToInt32(input[i + 1]);
-                for (int j = 0x80; Convert.ToBoolean(j); j>>=1)
+                CRC = i;
+                CRC <<= order - 8;
+
+                for (j = 0; j < 8; j++)
                 {
                     bit = CRC & CRCHighBit;
                     CRC <<= 1;
-                    if (Convert.ToBoolean(c & j)) CRC |= 1;
                     if (Convert.ToBoolean(bit)) CRC ^= polynom;
                 }
+                CRC &= crcmask;
+                crctab[i] = CRC;
             }
-            for (int i = 0; i < order; i++)
-            {
-                bit = CRC & CRCHighBit;
-                CRC <<= 1;
-                if (Convert.ToBoolean(bit)) CRC ^= polynom;
-            }
-            CRC ^= 0;
-            CRC &= crcmask;
-            return CRC;
-        }    
+
+        }
     }
 }

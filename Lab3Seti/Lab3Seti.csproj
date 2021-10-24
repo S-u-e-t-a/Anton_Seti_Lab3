@@ -46,6 +46,7 @@
     <Compile Include="CRC.cs" />
     <Compile Include="CRCReg.cs" />
     <Compile Include="CRCRegNew.cs" />
+    <Compile Include="CRCTable.cs" />
     <Compile Include="Parity.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

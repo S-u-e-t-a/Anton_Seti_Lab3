@@ -59,10 +59,10 @@ namespace Lab3Seti
 
             Console.WriteLine("=== Циклический избыточный контроль ===");
 
-            uint contrlSum;
-
+            byte[] arr = new byte[] { 0x1, 0x2, 0x3, 0x4, 0x5, 0x6, 0x7, 0x8, 0x9 };
             var CRC = new CRCRegNew();
-            Console.WriteLine(Convert.ToString(CRC.CRCBitByBit(surname), 16));
+            Console.WriteLine(Convert.ToString(CRC.CRCBitByBit(arr), 16));
+
 
             //CRCReg.CRC32(surname, out contrlSum);
             //Console.Write("КС CRC-32-ITU: ");
