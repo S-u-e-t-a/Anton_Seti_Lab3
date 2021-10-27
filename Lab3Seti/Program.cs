@@ -7,7 +7,7 @@ namespace Lab3Seti
     {
         static void Main(string[] args)
         {
-            byte[] surname = new byte[] { 0x83, 0xE3, 0xE1, 0xA5, 0xA2}; //Гусев
+            byte[] surname = new byte[] { 0x83, 0xE3, 0xE1, 0xA5, 0xA2 }; //Гусев
             //вывод исходного сообщения
             Console.WriteLine();
             Console.WriteLine("=== Контроль по паритету ===");
@@ -44,7 +44,7 @@ namespace Lab3Seti
 
             for (int i = 0; i < surname.Length; i++)
             {
-                Console.Write($"{i}Б  { Convert.ToString(surname[i], 2)}  КC: { Convert.ToString(countSumHor[i], 2)}");
+                Console.Write($"{i + 1}Б  { Convert.ToString(surname[i], 2)}  КC: { Convert.ToString(countSumHor[i], 2)}");
                 Console.WriteLine();
             }
             Console.Write("КС: ");
@@ -59,27 +59,20 @@ namespace Lab3Seti
 
             Console.WriteLine("=== Циклический избыточный контроль ===");
 
-            byte[] arr = new byte[] { 0x1, 0x2, 0x3, 0x4, 0x5, 0x6, 0x7, 0x8, 0x9 };
-            var CRC = new CRCRegNew();
-            Console.WriteLine(Convert.ToString(CRC.CRCBitByBit(arr), 16));
+            char[] arr = new char[] { '1', '2', '3', '4', '5', '6', '7', '8', '9' };
+            CRCFromC crcFromC = new CRCFromC();
+            Console.WriteLine(Convert.ToString(crcFromC.CRCBitByBit(arr), 16));
 
-
-            //CRCReg.CRC32(surname, out contrlSum);
-            //Console.Write("КС CRC-32-ITU: ");
-            //Console.Write(Convert.ToString(contrlSum, 2));
-            //Console.WriteLine();
-
-
-            //var crc = new CRC();
-            //List<int> result = crc.MakeResult();
-            //Console.WriteLine($"Контрольная сумма:" + Environment.NewLine + $"{string.Join("", result)}");
+            uint crcRes;
+            CRCRefactoring.CRC32(arr, out crcRes);
+            Console.WriteLine(Convert.ToString(crcRes, 16));
 
             Console.WriteLine("===  ===");
             Console.WriteLine();
-            
+
 
             Console.ReadLine();
         }
-                
+
     }
 }

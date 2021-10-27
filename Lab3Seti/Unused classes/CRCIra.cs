@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Lab3Seti
 {
-    public class CRCReg
+    public class CRCIra
     {
         public static void CRC32(byte[] arrOrig, out uint ctrlSum)
         {

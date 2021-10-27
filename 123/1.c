@@ -27,8 +27,8 @@
 
 // CRC parameters (default values are for CRC-32):
 
-const int order = 4;
-const unsigned long polynom = 0x3;//0x4c11db7;
+const int order = 32;
+const unsigned long polynom = 0x814141AB;//0x4c11db7;
 const int direct = 0;
 const unsigned long crcinit = 0;//0xffffffff;
 const unsigned long crcxor = 0;//0xffffffff;

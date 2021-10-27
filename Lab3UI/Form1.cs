@@ -41,7 +41,7 @@ namespace Lab3UI
             }
 
             uint CSCRC;
-            CRCReg.CRC32(input, out CSCRC);
+            CRCIra.CRC32(input, out CSCRC);
             textBoxCRC.Text += Convert.ToString(CSCRC, 2);
 
         }
