@@ -12,11 +12,12 @@ namespace Lab3Seti
     {
         public static void CRC32(char[] arrOrig, out uint ctrlSum)
         {
-            int _degreePolynom = 32;
-            const uint _polymome = 0x814141AB;
+            int _degreePolynom = 16;
+            const uint _polymome = 0x589;
             uint _register = 0x0;
+            uint _bitMask = (uint)(Math.Pow(2, _degreePolynom) - 1); // маска для удаления лишнего байта, кол-во единиц = степени полинома
 
-            char[] message = new char[arrOrig.Length + 4];
+            char[] message = new char[arrOrig.Length + 2];
             for (int i = 0; i < arrOrig.Length; i++)
             {
                 message[i] = arrOrig[i];
@@ -30,11 +31,12 @@ namespace Lab3Seti
                 {
                     uint BitIn = GetBit(bitPositionFinal, bitPosition, message[i]);
                     uint BitOut = GetBit(_degreePolynom, 0, _register);
-                    _register = RegistorPushAndXOR(BitIn, BitOut, _register, _polymome);
+                    _register = RegistorPushAndXOR(BitIn, BitOut, _register, _polymome, _bitMask);
                     bitPosition++;
+                    
                 }
             }
-            ctrlSum = _register;
+            ctrlSum = _register & _bitMask;
         }
 
         private static uint GetBit(int countBit, int position, uint word)
@@ -43,9 +45,9 @@ namespace Lab3Seti
             return word >> (countBit - position - 1) & bitMask;
         }
 
-        private static uint RegistorPushAndXOR(uint inBit, uint outBit, uint register, uint polinome)
+        private static uint RegistorPushAndXOR(uint inBit, uint outBit, uint register, uint polinome, uint bitMask)
         {
-            register = (register << 1) | inBit;
+            register = (register << 1) & bitMask | inBit;
             if (outBit == 1)
             {
                 register ^= polinome;
