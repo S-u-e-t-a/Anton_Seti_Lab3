@@ -12,12 +12,12 @@ namespace Lab3Seti
     {
         public static void CRC32(char[] arrOrig, out uint ctrlSum)
         {
-            int _degreePolynom = 16;
-            const uint _polymome = 0x589;
+            int _degreePolynom = 32;
+            const uint _polymome = 0x814141AB;
             uint _register = 0x0;
             uint _bitMask = (uint)(Math.Pow(2, _degreePolynom) - 1); // маска для удаления лишнего байта, кол-во единиц = степени полинома
 
-            char[] message = new char[arrOrig.Length + 2];
+            char[] message = new char[arrOrig.Length + (_degreePolynom / 8)];
             for (int i = 0; i < arrOrig.Length; i++)
             {
                 message[i] = arrOrig[i];

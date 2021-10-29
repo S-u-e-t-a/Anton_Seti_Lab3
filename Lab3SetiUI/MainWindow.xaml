@@ -32,8 +32,8 @@
         <Label Grid.Row="3" Grid.ColumnSpan="2" Content="Вертикальный и горизонтальный контроль по паритету"/>
         <Label Grid.Row="5" Grid.ColumnSpan="2" Content="Циклический избыточный контроль. Полином: 0x814141AB"/>
         <TextBox Grid.Row="2" Grid.ColumnSpan="2" Padding="5" Text="{Binding ParityResult, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" AcceptsReturn="True" ScrollViewer.VerticalScrollBarVisibility="Auto" ScrollViewer.HorizontalScrollBarVisibility="Auto"/>
-        <TextBox Grid.Row="4" Grid.ColumnSpan="2" Padding="5" Text="VerHorParityResult" AcceptsReturn="True" ScrollViewer.VerticalScrollBarVisibility="Auto" ScrollViewer.HorizontalScrollBarVisibility="Auto" />
-        <TextBox Grid.Row="6" Grid.ColumnSpan="2" Padding="5" Text="CRCResult" AcceptsReturn="True" ScrollViewer.VerticalScrollBarVisibility="Auto" ScrollViewer.HorizontalScrollBarVisibility="Auto" />
-        <Button Margin="10" Grid.Row="7" Grid.Column="0" Content="Рассчитать" />
+        <TextBox Grid.Row="4" Grid.ColumnSpan="2" Padding="5" Text="{Binding VerHorParityResult, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" AcceptsReturn="True" ScrollViewer.VerticalScrollBarVisibility="Auto" ScrollViewer.HorizontalScrollBarVisibility="Auto" />
+        <TextBox Grid.Row="6" Grid.ColumnSpan="2" Padding="5" Text="{Binding CRC32Result, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" AcceptsReturn="True" ScrollViewer.VerticalScrollBarVisibility="Auto" ScrollViewer.HorizontalScrollBarVisibility="Auto" />
+        <Button Margin="10" Grid.Row="7" Grid.Column="0" Content="Рассчитать" Command="{Binding StartCommand}" />
     </Grid>
 </Window>

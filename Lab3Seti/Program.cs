@@ -40,7 +40,7 @@ namespace Lab3Seti
             uint[] countSumHor;
             uint[] countSumVer;
 
-            VerHorParity.VertAndHorizontParityControlSum(surname, out countSumVer, out countSumHor);
+            VerHorParity.VertAndHorizontParityControlSum(surname.ToString().ToCharArray(), out countSumVer, out countSumHor);
 
             for (int i = 0; i < surname.Length; i++)
             {
