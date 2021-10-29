@@ -5,18 +5,18 @@ namespace Lab3Seti
 {
     public class Parity
     {
-        public static List<uint> MakeMessage(in byte[] letter)
+        public static string MakeMessage(char[] letter)
         {
-            var ctrlSum = new List<uint>(); // Всего байт в исходных данных
+            string ctrlSum = string.Empty; // Всего байт в исходных данных
 
             for (int i = 0; i < letter.Length; i++)
             {
-                ctrlSum.Add(ParityControlXORByteSum(letter[i]));
+                ctrlSum += ParityControlXORByteSum(letter[i]);
             }
             
             return ctrlSum;
         }
-        public static uint ParityControlXORByteSum(byte OneByte) 
+        public static uint ParityControlXORByteSum(char OneByte) 
         {
             const uint bitMask8 = 1 << 8;
             const uint bitMask1 = 1;

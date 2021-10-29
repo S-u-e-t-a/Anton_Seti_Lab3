@@ -8,7 +8,7 @@ namespace Lab3Seti
 {
 
     //тоже самое (почти) что и в классе CRCFromC но более понятным языком
-    class CRCRefactoring
+    public static class CRCRefactoring
     {
         public static void CRC32(char[] arrOrig, out uint ctrlSum)
         {

@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 // код взят с примера реализации на С
 namespace Lab3Seti
 { 
-    public class CRCFromC
+    internal class CRCFromC
     {
         const int _degreePolynom = 32; // степень полинома
         const uint _polynom = 0x814141AB;  // сам образующий полином

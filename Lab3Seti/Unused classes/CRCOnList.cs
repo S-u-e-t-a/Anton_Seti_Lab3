@@ -5,7 +5,7 @@ namespace Lab3Seti
 {
     // ЭТО ТОЖЕ РАБОТАЕТ ПРАВИЛЬНО, НО РЕАЛИЗОВАНО НЕ ТАК КАК НАДО
     // ОСТАЕТСЯ ТУТ ТОЛЬКО ПОТОМУ ЧТО МНЕ ЖАЛКО ЭТО УДАЛЯТЬ Я УБИЛ НА ЭТО ВЕЧЕР
-    public class CRCOnList
+    internal sealed class CRCOnList
     {
         public List<int> MakeResult()
         {

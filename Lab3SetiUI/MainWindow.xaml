@@ -3,8 +3,9 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:Lab3SetiUI"
+        xmlns:viewmodel="clr-namespace:Lab3SetiUI.ViewModel"
         mc:Ignorable="d"
+        d:DataContext="{d:DesignInstance viewmodel:MainWindowVM}"
         Title="Лабораторная работа №3. Гусев. 494" Height="570" Width="800">
     <Grid>
         <Grid.RowDefinitions>
@@ -23,14 +24,14 @@
         </Grid.ColumnDefinitions>
         <Menu Grid.Row="0" Grid.ColumnSpan="2" >
             <MenuItem Header="Файл">
-                <MenuItem Header="Открыть файл"/>
+                <MenuItem Header="Открыть файл" Command="{Binding ReadFile}"/>
             </MenuItem>
             <MenuItem Header="О программе"/>
         </Menu>
         <Label Grid.Row="1" Grid.ColumnSpan="2" Content="Контроль по паритету"/>
         <Label Grid.Row="3" Grid.ColumnSpan="2" Content="Вертикальный и горизонтальный контроль по паритету"/>
         <Label Grid.Row="5" Grid.ColumnSpan="2" Content="Циклический избыточный контроль. Полином: 0x814141AB"/>
-        <TextBox Grid.Row="2" Grid.ColumnSpan="2" Padding="5" Text="ParityResult" AcceptsReturn="True" ScrollViewer.VerticalScrollBarVisibility="Auto" ScrollViewer.HorizontalScrollBarVisibility="Auto"/>
+        <TextBox Grid.Row="2" Grid.ColumnSpan="2" Padding="5" Text="{Binding ParityResult, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" AcceptsReturn="True" ScrollViewer.VerticalScrollBarVisibility="Auto" ScrollViewer.HorizontalScrollBarVisibility="Auto"/>
         <TextBox Grid.Row="4" Grid.ColumnSpan="2" Padding="5" Text="VerHorParityResult" AcceptsReturn="True" ScrollViewer.VerticalScrollBarVisibility="Auto" ScrollViewer.HorizontalScrollBarVisibility="Auto" />
         <TextBox Grid.Row="6" Grid.ColumnSpan="2" Padding="5" Text="CRCResult" AcceptsReturn="True" ScrollViewer.VerticalScrollBarVisibility="Auto" ScrollViewer.HorizontalScrollBarVisibility="Auto" />
         <Button Margin="10" Grid.Row="7" Grid.Column="0" Content="Рассчитать" />

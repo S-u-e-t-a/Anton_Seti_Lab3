@@ -13,6 +13,8 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
+using Lab3SetiUI.ViewModel;
+
 namespace Lab3SetiUI
 {
     /// <summary>
@@ -23,6 +25,7 @@ namespace Lab3SetiUI
         public MainWindow()
         {
             InitializeComponent();
+            DataContext = new MainWindowVM();
         }
     }
 }

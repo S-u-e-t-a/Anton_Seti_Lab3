@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Lab3Seti
 {
-    class CRCTable
+    internal class CRCTable
     {
         const int order = 4;
         const int polynom = 0x03; //0x03;

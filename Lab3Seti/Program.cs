@@ -19,12 +19,12 @@ namespace Lab3Seti
             }
             Console.WriteLine();
 
-            var ctrlSumParity = Parity.MakeMessage(surname);
+            //var ctrlSumParity = Parity.MakeMessage(surname);
 
-            for (int i = 0; i < ctrlSumParity.Count; i++)
-            {
-                Console.WriteLine($"{i} байт: { Convert.ToString(surname[i], 2)} КС: {ctrlSumParity[i]}");
-            }
+            //for (int i = 0; i < ctrlSumParity.Count; i++)
+            //{
+            //    Console.WriteLine($"{i} байт: { Convert.ToString(surname[i], 2)} КС: {ctrlSumParity[i]}");
+            //}
 
             Console.WriteLine("===  ===");
             Console.WriteLine();
