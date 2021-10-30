@@ -10,14 +10,12 @@ namespace Lab3Seti
     //тоже самое (почти) что и в классе CRCFromC но более понятным языком
     public static class CRCRefactoring
     {
-        public static void CRC32(char[] arrOrig, out uint ctrlSum)
-        {
-            int _degreePolynom = 32;
-            const uint _polymome = 0x814141AB;
+        public static void CRC32(char[] arrOrig, out uint ctrlSum, int degreePolynom, uint polymome)
+        { 
             uint _register = 0x0;
-            uint _bitMask = (uint)(Math.Pow(2, _degreePolynom) - 1); // маска для удаления лишнего байта, кол-во единиц = степени полинома
+            uint _bitMask = (uint)(Math.Pow(2, degreePolynom) - 1); // маска для удаления лишнего байта, кол-во единиц = степени полинома
 
-            char[] message = new char[arrOrig.Length + (_degreePolynom / 8)];
+            char[] message = new char[arrOrig.Length + (degreePolynom / 8)];
             for (int i = 0; i < arrOrig.Length; i++)
             {
                 message[i] = arrOrig[i];
@@ -30,8 +28,8 @@ namespace Lab3Seti
                 while (bitPosition != bitPositionFinal)
                 {
                     uint BitIn = GetBit(bitPositionFinal, bitPosition, message[i]);
-                    uint BitOut = GetBit(_degreePolynom, 0, _register);
-                    _register = RegistorPushAndXOR(BitIn, BitOut, _register, _polymome, _bitMask);
+                    uint BitOut = GetBit(degreePolynom, 0, _register);
+                    _register = RegistorPushAndXOR(BitIn, BitOut, _register, polymome, _bitMask);
                     bitPosition++;
                     
                 }

@@ -64,7 +64,7 @@ namespace Lab3Seti
             Console.WriteLine(Convert.ToString(crcFromC.CRCBitByBit(arr), 16));
 
             uint crcRes;
-            CRCRefactoring.CRC32(arr, out crcRes);
+            CRCRefactoring.CRC32(arr, out crcRes, 32, 0x814141AB);
             Console.WriteLine(Convert.ToString(crcRes, 16));
 
             Console.WriteLine("===  ===");

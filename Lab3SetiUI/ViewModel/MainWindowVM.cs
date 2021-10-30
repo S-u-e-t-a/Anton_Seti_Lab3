@@ -5,6 +5,7 @@ using System.IO;
 using System.Runtime.CompilerServices;
 using Lab3Seti;
 using System;
+using System.Windows;
 
 namespace Lab3SetiUI.ViewModel
 {
@@ -41,6 +42,27 @@ namespace Lab3SetiUI.ViewModel
             }
         }
 
+        public string Polynome
+        {
+            get { return polynome; }
+            set 
+            { 
+                polynome = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public int DegreePolynome
+        {
+            get { return degreePolynome; }
+            set 
+            { 
+                degreePolynome = value;
+                OnPropertyChanged();
+            }
+        }
+
+
         #endregion
 
         #region Fields
@@ -49,6 +71,9 @@ namespace Lab3SetiUI.ViewModel
         private string parityResult;
         private string verHorParityResult;
         private string crc32result;
+
+        private string polynome;
+        private int degreePolynome;
 
         #endregion
 
@@ -83,23 +108,46 @@ namespace Lab3SetiUI.ViewModel
             {
                 return startCommand ?? (startCommand = new RelayCommand(o =>
                 {
-                    uint[] ctrlSumVer;
-                    uint[] ctrlSumHor;
-                    ParityResult = Parity.MakeMessage(_inputText).ToString(); 
+                    if (!IsPolynomeCorrect())
+                    {
+                        MessageBox.Show("Полином указан неверно, проверьте корректность ввода", "Ошибка",
+                            MessageBoxButton.OK, MessageBoxImage.Warning);
+                    }
+                    else if ((_inputText is null) || string.IsNullOrEmpty(_inputText.ToString()))
+                    {
+                        MessageBox.Show("Не выбран файл для расчета контрольных сумм", "Ошибка",
+                            MessageBoxButton.OK, MessageBoxImage.Warning);
+                    }
+                    else
+                    {                        
+                        ParityResult = Parity.MakeMessage(_inputText).ToString();
 
-                    VerHorParity.VertAndHorizontParityControlSum(_inputText, out ctrlSumVer, out ctrlSumHor);
-                    VerHorParityResult = string.Join("", ctrlSumVer) + Environment.NewLine;
-                    VerHorParityResult += string.Join("", ctrlSumHor);
+                        uint[] ctrlSumVer;
+                        uint[] ctrlSumHor;
+                        VerHorParity.VertAndHorizontParityControlSum(_inputText, out ctrlSumVer, out ctrlSumHor);
+                        VerHorParityResult = string.Join("", ctrlSumVer) + Environment.NewLine;
+                        VerHorParityResult += string.Join("", ctrlSumHor);
 
-                    uint crcCtrlSum;
-                    CRCRefactoring.CRC32(_inputText, out crcCtrlSum);
-                    CRC32Result = Convert.ToString(crcCtrlSum, 16).ToString().ToUpper();
+                        uint crcCtrlSum;
+                        CRCRefactoring.CRC32(_inputText, out crcCtrlSum, DegreePolynome, uint.Parse(Polynome));
+                        CRC32Result = Convert.ToString(crcCtrlSum, 16).ToString().ToUpper();
+                    }
 
                 }));
             }
 
         }
 
+
+        #endregion
+
+        #region Functions
+
+        private bool IsPolynomeCorrect()
+        {    
+            uint t;
+            return uint.TryParse(Polynome, out t); // работает только если полином в 10 системе счисления
+        }
 
         #endregion
 
