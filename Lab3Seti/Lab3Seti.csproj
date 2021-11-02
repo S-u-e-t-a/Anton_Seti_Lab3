@@ -45,7 +45,7 @@
   <ItemGroup>
     <Compile Include="Unused classes\CRCOnList.cs" />
     <Compile Include="Unused classes\CRCIra.cs" />
-    <Compile Include="CRCFromC.cs" />
+    <Compile Include="Unused classes\CRCFromC.cs" />
     <Compile Include="CRCRefactoring.cs" />
     <Compile Include="Unused classes\CRCTable.cs" />
     <Compile Include="Parity.cs" />

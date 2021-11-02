@@ -7,7 +7,7 @@
         xmlns:viewmodel="clr-namespace:Lab3SetiUI.ViewModel"
         mc:Ignorable="d"
         d:DataContext="{d:DesignInstance viewmodel:MainWindowVM}"
-        Title="Лабораторная работа №3. Гусев. 494" Height="570" Width="800">
+        Title="Лабораторная работа №3. Гусев. 494" Height="580" Width="800">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="20"/>
@@ -28,7 +28,7 @@
             <MenuItem Header="Файл">
                 <MenuItem Header="Открыть файл" Command="{Binding ReadFile}"/>
             </MenuItem>
-            <MenuItem Header="О программе"/>
+            <MenuItem Header="О программе" Command="{Binding HelpCommand}"/>
         </Menu>
         <Label Grid.Row="1" Grid.ColumnSpan="3" Content="Контроль по паритету"/>
         <Label Grid.Row="3" Grid.ColumnSpan="3" Content="Вертикальный и горизонтальный контроль по паритету"/>
@@ -39,7 +39,7 @@
         
         <StackPanel Grid.Row="6" Grid.Column="3" Orientation="Vertical" Margin="20">
             <Label Content="Полином"/>
-            <TextBox Margin="5 0 5 0" Text="{Binding Polynome}"/>
+            <xctk:LongUpDown ParsingNumberStyle="HexNumber" Margin="5 0 5 0" Text="{Binding Polynome}"/>
             <Label Content="Степень полинома"/>
             <xctk:IntegerUpDown Width="75" HorizontalAlignment="Left" Margin="5 0 5 0" Minimum="8" Maximum="64" Increment="8" Text="{Binding DegreePolynome, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
         </StackPanel>

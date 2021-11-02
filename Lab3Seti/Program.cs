@@ -5,7 +5,7 @@ namespace Lab3Seti
 {
     class Program
     {
-        static void Main(string[] args)
+        static void Main()
         {
             byte[] surname = new byte[] { 0x83, 0xE3, 0xE1, 0xA5, 0xA2 }; //Гусев
             //вывод исходного сообщения
@@ -19,12 +19,12 @@ namespace Lab3Seti
             }
             Console.WriteLine();
 
-            //var ctrlSumParity = Parity.MakeMessage(surname);
+            var ctrlSumParity = Parity.MakeMessage(surname.ToString().ToCharArray());
 
-            //for (int i = 0; i < ctrlSumParity.Count; i++)
-            //{
-            //    Console.WriteLine($"{i} байт: { Convert.ToString(surname[i], 2)} КС: {ctrlSumParity[i]}");
-            //}
+            for (int i = 0; i < ctrlSumParity.Length; i++)
+            {
+                Console.WriteLine($"{i + 1} байт: { Convert.ToString(surname[i], 2)} КС: {ctrlSumParity[i]}");
+            }
 
             Console.WriteLine("===  ===");
             Console.WriteLine();
@@ -37,10 +37,8 @@ namespace Lab3Seti
             }
             Console.WriteLine();
             Console.WriteLine("Таблица для метода вертикального и горизонтального контроля по паритету");
-            uint[] countSumHor;
-            uint[] countSumVer;
 
-            VerHorParity.VertAndHorizontParityControlSum(surname.ToString().ToCharArray(), out countSumVer, out countSumHor);
+            VerHorParity.VertAndHorizontParityControlSum(surname.ToString().ToCharArray(), out uint[] countSumVer, out uint[] countSumHor);
 
             for (int i = 0; i < surname.Length; i++)
             {
@@ -63,8 +61,7 @@ namespace Lab3Seti
             CRCFromC crcFromC = new CRCFromC();
             Console.WriteLine(Convert.ToString(crcFromC.CRCBitByBit(arr), 16));
 
-            uint crcRes;
-            CRCRefactoring.CRC32(arr, out crcRes, 32, 0x814141AB);
+            CRCRefactoring.CRC32(arr, out uint crcRes, 32, 0x814141AB);
             Console.WriteLine(Convert.ToString(crcRes, 16));
 
             Console.WriteLine("===  ===");

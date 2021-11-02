@@ -16,7 +16,7 @@ namespace Lab3Seti
             
             return ctrlSum;
         }
-        public static uint ParityControlXORByteSum(char OneByte) 
+        private static uint ParityControlXORByteSum(char OneByte)
         {
             const uint bitMask8 = 1 << 8;
             const uint bitMask1 = 1;
@@ -28,7 +28,7 @@ namespace Lab3Seti
 
             for (int j = lBorderByte; j < pBorderByte; j++) // Бит j в байте i
             {
-                uint bitJ = ((message >> (pBorderByte - j - 1)) & bitMask1);
+                uint bitJ = (message >> (pBorderByte - j - 1)) & bitMask1;
                 controlSum ^= bitJ;
             }
             return controlSum;

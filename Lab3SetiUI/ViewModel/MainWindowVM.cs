@@ -87,8 +87,10 @@ namespace Lab3SetiUI.ViewModel
             {
                 return readFile ?? (readFile = new RelayCommand(o =>
                 {
-                    var dlg = new OpenFileDialog();
-                    dlg.DefaultExt = ".txt";
+                    var dlg = new OpenFileDialog
+                    {
+                        DefaultExt = ".txt"
+                    };
                     var result = dlg.ShowDialog();
                     if (result == true)
                     {
@@ -122,31 +124,38 @@ namespace Lab3SetiUI.ViewModel
                     {                        
                         ParityResult = Parity.MakeMessage(_inputText).ToString();
 
-                        uint[] ctrlSumVer;
-                        uint[] ctrlSumHor;
-                        VerHorParity.VertAndHorizontParityControlSum(_inputText, out ctrlSumVer, out ctrlSumHor);
+                        VerHorParity.VertAndHorizontParityControlSum(_inputText, out  uint[] ctrlSumVer, out uint[] ctrlSumHor);
                         VerHorParityResult = string.Join("", ctrlSumVer) + Environment.NewLine;
                         VerHorParityResult += string.Join("", ctrlSumHor);
 
-                        uint crcCtrlSum;
-                        CRCRefactoring.CRC32(_inputText, out crcCtrlSum, DegreePolynome, uint.Parse(Polynome));
+                        CRCRefactoring.CRC32(_inputText, out uint crcCtrlSum, DegreePolynome, ulong.Parse(Polynome));
                         CRC32Result = Convert.ToString(crcCtrlSum, 16).ToString().ToUpper();
                     }
 
                 }));
             }
-
         }
+        private RelayCommand helpCommand;
 
+        public RelayCommand HelpCommand
+        {
+            get 
+            { 
+                return helpCommand ?? (helpCommand = new RelayCommand(o => 
+                {
+                    var help = new About();
+                    help.ShowDialog();
+                })); 
+            }            
+        }
 
         #endregion
 
         #region Functions
 
         private bool IsPolynomeCorrect()
-        {    
-            uint t;
-            return uint.TryParse(Polynome, out t); // работает только если полином в 10 системе счисления
+        {
+            return ulong.TryParse(Polynome, out ulong t);
         }
 
         #endregion
@@ -157,10 +166,7 @@ namespace Lab3SetiUI.ViewModel
 
         public void OnPropertyChanged([CallerMemberName] string prop = "")
         {
-            if (PropertyChanged != null)
-            {
-                PropertyChanged(this, new PropertyChangedEventArgs(prop));
-            }
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(prop));
         }
 
         #endregion
