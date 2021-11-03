@@ -38,7 +38,7 @@
         <TextBox Grid.Row="6" Grid.ColumnSpan="2" Padding="5" Text="{Binding CRC32Result, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" AcceptsReturn="True" ScrollViewer.VerticalScrollBarVisibility="Auto" ScrollViewer.HorizontalScrollBarVisibility="Auto" />
         
         <StackPanel Grid.Row="6" Grid.Column="3" Orientation="Vertical" Margin="20">
-            <Label Content="Полином"/>
+            <Label Content="Полином в 10 СС"/>
             <xctk:LongUpDown ParsingNumberStyle="HexNumber" Margin="5 0 5 0" Text="{Binding Polynome}"/>
             <Label Content="Степень полинома"/>
             <xctk:IntegerUpDown Width="75" HorizontalAlignment="Left" Margin="5 0 5 0" Minimum="8" Maximum="64" Increment="8" Text="{Binding DegreePolynome, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
